@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "516433299014",
+    "firebase_url": "https://radar-escolas.firebaseio.com",
+    "project_id": "radar-escolas",
+    "storage_bucket": "radar-escolas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516433299014:android:5a7a9ccb7d8c6006ddec47",
+        "android_client_info": {
+          "package_name": "gal.radarescolas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516433299014-uuh7tak4roqlggndh4j66dbl80kpl0rb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbG7Hi_lFJINFGoU3smppw-SgITXYy-PI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516433299014-uuh7tak4roqlggndh4j66dbl80kpl0rb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "516433299014-tmajrs14ugubneptimj36e3cihb8m047.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "gal.radarescolas"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

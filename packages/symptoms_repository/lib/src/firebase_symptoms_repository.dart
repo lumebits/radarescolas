@@ -5,21 +5,21 @@ import 'package:symptoms_repository/symptoms_repository.dart';
 import 'entities/entities.dart';
 
 class FirebaseSymptomsRepository implements SymptomsRepository {
-  final todoCollection = FirebaseFirestore.instance.collection('symptoms');
+  final symptomsCollection = FirebaseFirestore.instance.collection('symptoms');
 
   @override
   Future<void> addNewSymptoms(Symptoms todo) {
-    return todoCollection.add(todo.toEntity().toDocument());
+    return symptomsCollection.add(todo.toEntity().toDocument());
   }
 
   @override
   Future<void> deleteSymptoms(Symptoms todo) async {
-    return todoCollection.doc(todo.id).delete();
+    return symptomsCollection.doc(todo.id).delete();
   }
 
   @override
   Stream<List<Symptoms>> symptoms() {
-    return todoCollection.snapshots().map((snapshot) {
+    return symptomsCollection.snapshots().map((snapshot) {
       return snapshot.docs
           .map((doc) => Symptoms.fromEntity(SymptomsEntity.fromSnapshot(doc)))
           .toList();
@@ -28,7 +28,7 @@ class FirebaseSymptomsRepository implements SymptomsRepository {
 
   @override
   Future<void> updateSymptoms(Symptoms update) {
-    return todoCollection
+    return symptomsCollection
         .doc(update.id)
         .update(update.toEntity().toDocument());
   }

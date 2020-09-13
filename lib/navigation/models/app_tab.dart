@@ -1,0 +1,1 @@
+enum AppTab { today, history, info }

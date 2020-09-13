@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radarescolas/authentication/authentication.dart';
 import 'package:radarescolas/home/home.dart';
 import 'package:radarescolas/login/login.dart';
+import 'package:radarescolas/navigation/bloc/navigation_bloc.dart';
 import 'package:radarescolas/splash/splash.dart';
 import 'package:radarescolas/theme.dart';
 
@@ -20,10 +21,18 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
       value: authenticationRepository,
-      child: BlocProvider(
-        create: (_) => AuthenticationBloc(
-          authenticationRepository: authenticationRepository,
-        ),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => AuthenticationBloc(
+              authenticationRepository: authenticationRepository,
+            ),
+          ),
+          BlocProvider(
+            create: (_) => NavigationBloc(
+            ),
+          )
+        ],
         child: AppView(),
       ),
     );

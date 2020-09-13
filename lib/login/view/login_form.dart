@@ -5,6 +5,8 @@ import 'package:radarescolas/sign_up/sign_up.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:formz/formz.dart';
 
+import '../../theme.dart';
+
 class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class LoginForm extends StatelessWidget {
           Scaffold.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              const SnackBar(content: Text('Authentication Failure')),
+              const SnackBar(content: Text('Erro na autenticación')),
             );
         }
       },
@@ -51,9 +53,9 @@ class _EmailInput extends StatelessWidget {
           onChanged: (email) => context.bloc<LoginCubit>().emailChanged(email),
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            labelText: 'email',
+            labelText: 'Correo electrónico',
             helperText: '',
-            errorText: state.email.invalid ? 'invalid email' : null,
+            errorText: state.email.invalid ? 'Correo electrónico non válido' : null,
           ),
         );
       },
@@ -73,9 +75,9 @@ class _PasswordInput extends StatelessWidget {
               context.bloc<LoginCubit>().passwordChanged(password),
           obscureText: true,
           decoration: InputDecoration(
-            labelText: 'password',
+            labelText: 'Contrasinal',
             helperText: '',
-            errorText: state.password.invalid ? 'invalid password' : null,
+            errorText: state.password.invalid ? 'Contrasinal non válido' : null,
           ),
         );
       },
@@ -93,11 +95,11 @@ class _LoginButton extends StatelessWidget {
             ? const CircularProgressIndicator()
             : RaisedButton(
           key: const Key('loginForm_continue_raisedButton'),
-          child: const Text('LOGIN'),
+          child: const Text('INICIAR SESIÓN'),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.0),
           ),
-          color: const Color(0xFFFFD600),
+          color: theme.primaryColor,
           onPressed: state.status.isValidated
               ? () => context.bloc<LoginCubit>().logInWithCredentials()
               : null,
@@ -114,12 +116,12 @@ class _GoogleLoginButton extends StatelessWidget {
     return RaisedButton.icon(
       key: const Key('loginForm_googleLogin_raisedButton'),
       label: const Text(
-        'SIGN IN WITH GOOGLE',
+        'INICIAR SESIÓN CON GOOGLE',
         style: TextStyle(color: Colors.white),
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       icon: const Icon(FontAwesomeIcons.google, color: Colors.white),
-      color: theme.accentColor,
+      color: theme.colorScheme.secondary,
       onPressed: () => context.bloc<LoginCubit>().logInWithGoogle(),
     );
   }
@@ -132,7 +134,7 @@ class _SignUpButton extends StatelessWidget {
     return FlatButton(
       key: const Key('loginForm_createAccount_flatButton'),
       child: Text(
-        'CREATE ACCOUNT',
+        'CREAR UNHA CONTA',
         style: TextStyle(color: theme.primaryColor),
       ),
       onPressed: () => Navigator.of(context).push<void>(SignUpPage.route()),

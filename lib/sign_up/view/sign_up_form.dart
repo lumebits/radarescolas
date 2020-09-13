@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:radarescolas/sign_up/sign_up.dart';
 import 'package:formz/formz.dart';
+import 'package:toggle_switch/toggle_switch.dart';
+
+import '../../theme.dart';
 
 class SignUpForm extends StatelessWidget {
   @override
@@ -21,6 +25,25 @@ class SignUpForm extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            ToggleSwitch(
+                minWidth: 120.0,
+                initialLabelIndex: 0,
+                cornerRadius: 20.0,
+                activeFgColor: Colors.white,
+                inactiveBgColor: Colors.grey,
+                inactiveFgColor: Colors.white,
+                labels: ['Mestre/a', 'Alumno/a'],
+                icons: [FontAwesomeIcons.graduationCap, FontAwesomeIcons.child],
+                activeBgColors: [theme.colorScheme.secondary, theme.colorScheme.secondary],
+                onToggle: (index) {
+                  String roleLabel = 'Mestre/a';
+                  if (index == 1) {
+                    roleLabel = 'Alumno/a';
+                  }
+                  context.bloc<SignUpCubit>().roleChanged(roleLabel);
+                }
+            ),
+            const SizedBox(height: 36.0),
             _EmailInput(),
             const SizedBox(height: 8.0),
             _PasswordInput(),
@@ -33,6 +56,7 @@ class SignUpForm extends StatelessWidget {
   }
 }
 
+
 class _EmailInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -44,9 +68,9 @@ class _EmailInput extends StatelessWidget {
           onChanged: (email) => context.bloc<SignUpCubit>().emailChanged(email),
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            labelText: 'email',
+            labelText: 'Correo electrónico',
             helperText: '',
-            errorText: state.email.invalid ? 'invalid email' : null,
+            errorText: state.email.invalid ? 'Correo electrónico non válido' : null,
           ),
         );
       },
@@ -66,9 +90,9 @@ class _PasswordInput extends StatelessWidget {
               context.bloc<SignUpCubit>().passwordChanged(password),
           obscureText: true,
           decoration: InputDecoration(
-            labelText: 'password',
+            labelText: 'Contrasinal',
             helperText: '',
-            errorText: state.password.invalid ? 'invalid password' : null,
+            errorText: state.password.invalid ? 'Contrasinal non válido' : null,
           ),
         );
       },
@@ -86,11 +110,11 @@ class _SignUpButton extends StatelessWidget {
             ? const CircularProgressIndicator()
             : RaisedButton(
           key: const Key('signUpForm_continue_raisedButton'),
-          child: const Text('SIGN UP'),
+          child: const Text('REXISTRARSE'),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.0),
           ),
-          color: Colors.orangeAccent,
+          color: theme.primaryColor,
           onPressed: state.status.isValidated
               ? () => context.bloc<SignUpCubit>().signUpFormSubmitted()
               : null,

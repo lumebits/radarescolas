@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
       builder: (context, activeTab) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Radar Mestres'),
+            title: const Text('Radar Escolas'),
             actions: <Widget>[
               IconButton(
                 key: const Key('homePage_logout_iconButton'),

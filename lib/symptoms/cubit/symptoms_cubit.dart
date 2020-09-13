@@ -18,9 +18,7 @@ class SymptomsCubit extends Cubit<SymptomsState> {
     if (!state.status.isValidated) return;
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {
-      await _symptomsRepository.save(
-        symptoms: state.symptoms.value,
-      );
+      await _symptomsRepository.addNewSymptoms(state.symptoms);
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on Exception {
       emit(state.copyWith(status: FormzStatus.submissionFailure));

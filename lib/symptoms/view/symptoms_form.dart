@@ -160,7 +160,7 @@ class _SaveSymptomsButton extends StatelessWidget {
     return BlocBuilder<SymptomsCubit, SymptomsState>(
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
-        return state.status.is
+        return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
             : RaisedButton(
           key: const Key('symptomsForm_continue_raisedButton'),
@@ -169,7 +169,7 @@ class _SaveSymptomsButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(30.0),
           ),
           color: theme.primaryColor,
-          onPressed: state.status.is
+          onPressed: state.status.isValidated
               ? () => context.bloc<SymptomsCubit>().symptomsFormSubmitted()
               : null,
         );

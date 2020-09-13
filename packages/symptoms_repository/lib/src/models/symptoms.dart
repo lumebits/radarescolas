@@ -1,37 +1,61 @@
-import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import '../entities/entities.dart';
 
-/// {@template user}
-/// Symptoms model
-///
-/// [Symptoms.empty] represents an symptoms form.
-/// {@endtemplate}
-class Symptoms extends Equatable {
-  /// {@macro symptoms}
-  const Symptoms({
-    @required this.fever,
-    @required this.cough,
-    @required this.breathDifficulty,
-              this.date
-  })  : assert(fever != null),
-        assert(cough != null),
-        assert(breathDifficulty != null);
-
-  /// The current user's fever symptom.
+@immutable
+class Symptoms {
+  final String id;
   final bool fever;
-
-  /// The current user's cough symptom.
   final bool cough;
-
-  /// The current user's breath difficulty symptom.
   final bool breathDifficulty;
-
-  /// The date when the form was submitted.
   final DateTime date;
 
-  /// Empty symptoms form.
-  static const empty = Symptoms(fever: false, cough: false, breathDifficulty: false, date: null);
+  Symptoms(String id, {this.fever = false, this.cough = false,
+  this.breathDifficulty = false, this.date})
+      : this.id = id;
+
+  Symptoms copyWith({String id, bool fever, bool cough, bool breathDifficulty, DateTime date}) {
+    return Symptoms(
+      id ?? this.id,
+      fever: fever ?? this.fever,
+      cough: cough ?? this.cough,
+      breathDifficulty: breathDifficulty ?? this.breathDifficulty,
+      date: date ?? this.date,
+    );
+  }
 
   @override
-  List<Object> get props => [fever, cough, breathDifficulty, date];
+  int get hashCode =>
+      id.hashCode ^ fever.hashCode ^ cough.hashCode
+      ^ breathDifficulty.hashCode ^ date.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is Symptoms &&
+              runtimeType == other.runtimeType &&
+              id == other.id &&
+              fever == other.fever &&
+              cough == other.cough &&
+              breathDifficulty == other.breathDifficulty &&
+              date == other.date;
+
+  @override
+  String toString() {
+    return 'Symptoms{id: $id, fever: $fever, cough: $cough, '
+        'breathDifficulty: $breathDifficulty, date: $date}';
+  }
+
+  SymptomsEntity toEntity() {
+    return SymptomsEntity(id, fever, cough, breathDifficulty, date);
+  }
+
+  static Symptoms fromEntity(SymptomsEntity entity) {
+    return Symptoms(
+      entity.id,
+      fever: entity.fever ?? false,
+      cough: entity.cough ?? false,
+      breathDifficulty: entity.breathDifficulty ?? false,
+      date: entity.date ?? DateTime.now(),
+    );
+  }
 }

@@ -1,32 +1,13 @@
 import 'dart:async';
-import 'package:meta/meta.dart';
 
-/// Thrown if during the form save process if a failure occurs.
-class SaveSymptomsFormFailure implements Exception {}
+import 'package:symptoms_repository/symptoms_repository.dart';
 
-/// {@template symptoms_repository}
-/// Repository which manages symptoms form.
-/// {@endtemplate}
-class SymptomsRepository {
-  /// {@macro symptoms_repository}
-  SymptomsRepository();
+abstract class SymptomsRepository {
+  Future<void> addNewSymptoms(Symptoms todo);
 
-  /// Creates a new symptom form with the provided [fever], [cough],
-  /// [breathDifficulty] and [date].
-  ///
-  /// Throws a [SaveSymptomsFormFailure] if an exception occurs.
-  Future<void> save({
-    @required String fever,
-    @required String cough,
-    @required String breathDifficulty,
-  }) async {
-    assert(fever != null && cough != null && breathDifficulty != null);
-    try {
-      //await db.save(); /// TODO: implement
-    } on Exception {
-      throw SaveSymptomsFormFailure();
-    }
-  }
+  Future<void> deleteSymptoms(Symptoms todo);
 
+  Stream<List<Symptoms>> symptoms();
 
+  Future<void> updateSymptoms(Symptoms todo);
 }

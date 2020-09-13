@@ -23,15 +23,14 @@ class App extends StatelessWidget {
       value: authenticationRepository,
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(
+          BlocProvider<AuthenticationBloc>(
             create: (_) => AuthenticationBloc(
               authenticationRepository: authenticationRepository,
             ),
           ),
-          BlocProvider(
-            create: (_) => NavigationBloc(
-            ),
-          )
+          BlocProvider<NavigationBloc>(
+            create: (_) => NavigationBloc(),
+          ),
         ],
         child: AppView(),
       ),
@@ -61,13 +60,13 @@ class _AppViewState extends State<AppView> {
               case AuthenticationStatus.authenticated:
                 _navigator.pushAndRemoveUntil<void>(
                   HomePage.route(),
-                      (route) => false,
+                  (route) => false,
                 );
                 break;
               case AuthenticationStatus.unauthenticated:
                 _navigator.pushAndRemoveUntil<void>(
                   LoginPage.route(),
-                      (route) => false,
+                  (route) => false,
                 );
                 break;
               default:

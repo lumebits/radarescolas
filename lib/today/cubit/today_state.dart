@@ -2,26 +2,33 @@ part of 'today_cubit.dart';
 
 class TodayState extends Equatable {
   const TodayState({
-    this.email = const Email.pure(),
-    this.password = const Password.pure(),
+    this.fever = const FeverInput.pure(),
+    this.cough = const CoughInput.pure(),
+    this.breathDifficulty = const BreathDifficultyInput.pure(),
     this.status = FormzStatus.pure,
   });
 
-  final Email email;
-  final Password password;
+  final FeverInput fever;
+  final CoughInput cough;
+  final BreathDifficultyInput breathDifficulty;
   final FormzStatus status;
 
   @override
-  List<Object> get props => [email, password, status];
+  List<Object> get props => [fever, cough, breathDifficulty, status];
+
+  @override
+  bool get stringify => true;
 
   TodayState copyWith({
-    Email email,
-    Password password,
+    FeverInput fever,
+    CoughInput cough,
+    BreathDifficultyInput breathDifficulty,
     FormzStatus status,
   }) {
     return TodayState(
-      email: email ?? this.email,
-      password: password ?? this.password,
+      fever: fever ?? this.fever,
+      cough: cough ?? this.cough,
+      breathDifficulty: breathDifficulty ?? this.breathDifficulty,
       status: status ?? this.status,
     );
   }

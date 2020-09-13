@@ -1,31 +1,40 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:radarescolas/authentication/authentication.dart';
+import 'package:radarescolas/today/models/today_models.dart';
 import 'package:symptoms_repository/symptoms_repository.dart';
 
 part 'today_state.dart';
 
 class TodayCubit extends Cubit<TodayState> {
-  TodayCubit(this._symptomsRepository)
-      : assert(_symptomsRepository != null),
-        super(const TodayState());
+  TodayCubit(this.symptomsRepository)
+      : assert(symptomsRepository != null),
+        super(
+            const TodayState()); // TODO: Initial state depending on wether the form was submitted already or not
 
-  final SymptomsRepository _symptomsRepository;
+  final SymptomsRepository symptomsRepository;
 
-  void emailChanged(String value) {
-    final email = Email.dirty(value);
+  void feverChanged(bool value) {
+    final fever = FeverInput.dirty(value);
     emit(state.copyWith(
-      email: email,
-      status: Formz.validate([email, state.password]),
+      fever: fever,
+      status: Formz.validate([fever, state.cough, state.breathDifficulty]),
     ));
   }
 
-  void passwordChanged(String value) {
-    final password = Password.dirty(value);
+  void coughChanged(bool value) {
+    final cough = CoughInput.dirty(value);
     emit(state.copyWith(
-      password: password,
-      status: Formz.validate([state.email, password]),
+      cough: cough,
+      status: Formz.validate([state.fever, cough, state.breathDifficulty]),
+    ));
+  }
+
+  void breathDifficultyChanged(bool value) {
+    final breathDifficulty = BreathDifficultyInput.dirty(value);
+    emit(state.copyWith(
+      breathDifficulty: breathDifficulty,
+      status: Formz.validate([state.fever, state.cough, breathDifficulty]),
     ));
   }
 
@@ -33,7 +42,11 @@ class TodayCubit extends Cubit<TodayState> {
     if (!state.status.isValidated) return;
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {
-      await _symptomsRepository.addNewSymptoms(null);
+      await symptomsRepository.addNewSymptoms(Symptoms(null,
+          fever: state.fever.value,
+          cough: state.cough.value,
+          breathDifficulty: state.breathDifficulty.value,
+          date: DateTime.now()));
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on Exception {
       emit(state.copyWith(status: FormzStatus.submissionFailure));

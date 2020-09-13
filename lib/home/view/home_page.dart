@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radarescolas/authentication/authentication.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:radarescolas/home/home.dart';
 
 class HomePage extends StatelessWidget {
@@ -10,11 +11,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _firebaseAuth = FirebaseAuth.instance;
     final textTheme = Theme.of(context).textTheme;
-    final user = context.bloc<AuthenticationBloc>().state.user;
+    var user = context.bloc<AuthenticationBloc>().state.user;
+    final firebaseUser = _firebaseAuth.currentUser;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('Hoxe'),
         actions: <Widget>[
           IconButton(
             key: const Key('homePage_logout_iconButton'),
@@ -31,9 +34,9 @@ class HomePage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             const SizedBox(height: 4.0),
-            Text(user.email, style: textTheme.headline6),
+            Text(user.email, style: textTheme.headline5),
             const SizedBox(height: 4.0),
-            Text(user.email ?? '', style: textTheme.headline5),
+            Text(firebaseUser.displayName ?? '', style: textTheme.headline5),
           ],
         ),
       ),

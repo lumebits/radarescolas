@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:radarescolas/authentication/authentication.dart';
 import 'package:formz/formz.dart';
+import 'package:radarescolas/authentication/models/role.dart';
 
 part 'login_state.dart';
 

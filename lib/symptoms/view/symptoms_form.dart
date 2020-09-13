@@ -2,22 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:radarescolas/authentication/authentication.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:radarescolas/home/home.dart';
+import 'package:radarescolas/symptoms/cubit/symptoms_cubit.dart';
 
 import '../../theme.dart';
 
-class HomePage extends StatelessWidget {
-  static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => HomePage());
-  }
+class SymptomsForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _firebaseAuth = FirebaseAuth.instance;
-    final textTheme = Theme.of(context).textTheme;
-    var user = context.bloc<AuthenticationBloc>().state.user;
-    final firebaseUser = _firebaseAuth.currentUser;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Radar Escolas'),
@@ -57,11 +49,11 @@ class _Question1 extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.calendar_today_rounded, color: Colors.white),
               title:
-                  Text('Presentou nas últimas dúas semanas?',
-                      style: TextStyle(
-                        color: Colors.white,
-                      )
-                  ),
+              Text('Presentou nas últimas dúas semanas?',
+                  style: TextStyle(
+                    color: Colors.white,
+                  )
+              ),
             ),
             ListBody(
               children: [
@@ -73,8 +65,8 @@ class _Question1 extends StatelessWidget {
                       const SizedBox(height: 12.0),
                       Text('SÍNTOMAS RESPIRATORIOS?',
                           style: TextStyle(
-                            fontSize: theme.textTheme.headline5.fontSize,
-                            fontWeight: FontWeight.bold
+                              fontSize: theme.textTheme.headline5.fontSize,
+                              fontWeight: FontWeight.bold
                           )),
                       FeverStatefulWidget(),
                       CoughStatefulWidget(),
@@ -165,20 +157,20 @@ class _BreathStatefulWidgetState extends State<BreathStatefulWidget> {
 class _SaveSymptomsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignUpCubit, SignUpState>(
+    return BlocBuilder<SymptomsCubit, SymptomsState>(
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
-        return state.status.isSubmissionInProgress
+        return state.status.is
             ? const CircularProgressIndicator()
             : RaisedButton(
-          key: const Key('signUpForm_continue_raisedButton'),
-          child: const Text('REXISTRARSE'),
+          key: const Key('symptomsForm_continue_raisedButton'),
+          child: const Text('GARDAR'),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.0),
           ),
           color: theme.primaryColor,
-          onPressed: state.status.isValidated
-              ? () => context.bloc<SignUpCubit>().signUpFormSubmitted()
+          onPressed: state.status.is
+              ? () => context.bloc<SymptomsCubit>().symptomsFormSubmitted()
               : null,
         );
       },

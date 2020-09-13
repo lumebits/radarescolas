@@ -1,36 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:radarescolas/authentication/authentication.dart';
-import 'package:radarescolas/symptoms/cubit/symptoms_cubit.dart';
+import 'package:formz/formz.dart';
+import 'package:radarescolas/today/today.dart';
 
 import '../../theme.dart';
 
-class SymptomsForm extends StatelessWidget {
-
+class TodayForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Radar Escolas'),
-        actions: <Widget>[
-          IconButton(
-            key: const Key('homePage_logout_iconButton'),
-            icon: const Icon(Icons.exit_to_app),
-            onPressed: () => context
-                .bloc<AuthenticationBloc>()
-                .add(AuthenticationLogoutRequested()),
-          )
-        ],
-      ),
-      body: Align(
+    return BlocListener<TodayCubit, TodayState>(
+      listener: (context, state) {
+        if (state.status.isSubmissionFailure) {
+          Scaffold.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              const SnackBar(
+                  content:
+                      Text('Non se puido gardar, verifica a tua conexión')),
+            );
+        }
+      },
+      child: Align(
         alignment: const Alignment(0, -1 / 3),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+          children: [
             const SizedBox(height: 8.0),
             _Question1(),
-            const SizedBox(height: 8.0)
+            const SizedBox(height: 8.0),
           ],
         ),
       ),
@@ -47,13 +45,11 @@ class _Question1 extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
-              leading: Icon(Icons.calendar_today_rounded, color: Colors.white),
-              title:
-              Text('Presentou nas últimas dúas semanas?',
+              leading: Icon(Icons.calendar_today, color: Colors.white),
+              title: Text('Presentou nas últimas dúas semanas?',
                   style: TextStyle(
                     color: Colors.white,
-                  )
-              ),
+                  )),
             ),
             ListBody(
               children: [
@@ -66,8 +62,7 @@ class _Question1 extends StatelessWidget {
                       Text('SÍNTOMAS RESPIRATORIOS?',
                           style: TextStyle(
                               fontSize: theme.textTheme.headline5.fontSize,
-                              fontWeight: FontWeight.bold
-                          )),
+                              fontWeight: FontWeight.bold)),
                       FeverStatefulWidget(),
                       CoughStatefulWidget(),
                       BreathStatefulWidget()
@@ -80,7 +75,6 @@ class _Question1 extends StatelessWidget {
         ),
       ),
     );
-
   }
 }
 
@@ -153,26 +147,25 @@ class _BreathStatefulWidgetState extends State<BreathStatefulWidget> {
   }
 }
 
-
-class _SaveSymptomsButton extends StatelessWidget {
+class _SaveButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SymptomsCubit, SymptomsState>(
+    return BlocBuilder<TodayCubit, TodayState>(
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
             : RaisedButton(
-          key: const Key('symptomsForm_continue_raisedButton'),
-          child: const Text('GARDAR'),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          color: theme.primaryColor,
-          onPressed: state.status.isValidated
-              ? () => context.bloc<SymptomsCubit>().symptomsFormSubmitted()
-              : null,
-        );
+                key: const Key('todayForm_save_raisedButton'),
+                child: const Text('GARDAR'),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                color: theme.primaryColor,
+                onPressed: state.status.isValidated
+                    ? () => context.bloc<TodayCubit>().saveTodayForm()
+                    : null,
+              );
       },
     );
   }

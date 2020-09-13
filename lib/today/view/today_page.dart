@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:radarescolas/symptoms/symptoms.dart';
-
+import 'package:radarescolas/today/today.dart';
 import 'package:symptoms_repository/symptoms_repository.dart';
 
-class Today extends StatelessWidget {
-  Today({Key key}) : super(key: key);
+class TodayPage extends StatelessWidget {
+  TodayPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SymptomsCubit>(
-        create: (_) => SymptomsCubit(
+    return BlocProvider<TodayCubit>(
+        create: (_) => TodayCubit(
           context.repository<SymptomsRepository>(),
         ),
-        child: SymptomsForm()
+        child: TodayForm()
     );
   }
 }

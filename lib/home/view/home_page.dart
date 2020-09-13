@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radarescolas/authentication/authentication.dart';
 import 'package:radarescolas/home/home.dart';
 import 'package:radarescolas/navigation/navigation.dart';
+import 'package:radarescolas/today/today.dart';
 
 class HomePage extends StatelessWidget {
   static Route route() {
@@ -26,7 +27,7 @@ class HomePage extends StatelessWidget {
               )
             ],
           ),
-          body: activeTab == AppTab.today ? Today() : (activeTab == AppTab.history ? History() : Info()),
+          body: activeTab == AppTab.today ? TodayPage() : (activeTab == AppTab.history ? History() : Info()),
           bottomNavigationBar: TabSelector(
             activeTab: activeTab,
             onTabSelected: (tab) =>

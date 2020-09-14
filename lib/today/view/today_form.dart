@@ -85,6 +85,7 @@ class _QuestionsCard extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.white,
                 )),
+            tileColor: Color.fromARGB(255, 0, 112, 174),
           ),
           ListBody(
             children: [

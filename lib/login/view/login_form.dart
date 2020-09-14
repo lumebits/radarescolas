@@ -25,13 +25,21 @@ class LoginForm extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Image.asset('assets/icon.png', scale: 4,),
+            const SizedBox(height: 8.0),
+            Text('Radar Escolas',
+              style: TextStyle(
+                fontSize: theme.textTheme.headline3.fontSize,
+                fontWeight: FontWeight.bold
+              )
+            ,),
             const SizedBox(height: 16.0),
             _EmailInput(),
             const SizedBox(height: 8.0),
             _PasswordInput(),
             const SizedBox(height: 8.0),
             _LoginButton(),
-            const SizedBox(height: 8.0),
+            const SizedBox(height: 16.0),
             _GoogleLoginButton(),
             const SizedBox(height: 4.0),
             _SignUpButton(),

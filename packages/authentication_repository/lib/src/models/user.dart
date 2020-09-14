@@ -12,8 +12,7 @@ class RadarUser extends Equatable {
     @required this.email,
     @required this.id,
     @required this.role
-  })  : assert(role != null),
-        assert(email != null),
+  })  : assert(email != null),
         assert(id != null);
 
   /// The current user's email address.

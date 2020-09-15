@@ -19,7 +19,8 @@ class TodayCubit extends Cubit<TodayState> {
     emit(state.copyWith(
       fever: fever,
       status: Formz.validate([fever, state.cough, state.breathDifficulty, state.fatigue,
-        state.musclePain, state.smellLack, state.tasteLack, state.diarrhea]),
+        state.musclePain, state.smellLack, state.tasteLack, state.diarrhea, state.actualSymptoms,
+        state.covidContact, state.covidSuspectContact, state.covidHomemate, state.covidSuspectHomemate]),
     ));
   }
 
@@ -28,7 +29,8 @@ class TodayCubit extends Cubit<TodayState> {
     emit(state.copyWith(
       cough: cough,
       status: Formz.validate([state.fever, cough, state.breathDifficulty, state.fatigue,
-        state.musclePain, state.smellLack, state.tasteLack, state.diarrhea]),
+        state.musclePain, state.smellLack, state.tasteLack, state.diarrhea, state.actualSymptoms,
+        state.covidContact, state.covidSuspectContact, state.covidHomemate, state.covidSuspectHomemate]),
     ));
   }
 
@@ -37,7 +39,8 @@ class TodayCubit extends Cubit<TodayState> {
     emit(state.copyWith(
       breathDifficulty: breathDifficulty,
       status: Formz.validate([state.fever, state.cough, breathDifficulty, state.fatigue,
-        state.musclePain, state.smellLack, state.tasteLack, state.diarrhea]),
+        state.musclePain, state.smellLack, state.tasteLack, state.diarrhea, state.actualSymptoms,
+        state.covidContact, state.covidSuspectContact, state.covidHomemate, state.covidSuspectHomemate]),
     ));
   }
 
@@ -46,7 +49,8 @@ class TodayCubit extends Cubit<TodayState> {
     emit(state.copyWith(
       fatigue: fatigue,
       status: Formz.validate([state.fever, state.cough, state.breathDifficulty, fatigue,
-        state.musclePain, state.smellLack, state.tasteLack, state.diarrhea]),
+        state.musclePain, state.smellLack, state.tasteLack, state.diarrhea, state.actualSymptoms,
+        state.covidContact, state.covidSuspectContact, state.covidHomemate, state.covidSuspectHomemate]),
     ));
   }
 
@@ -55,7 +59,8 @@ class TodayCubit extends Cubit<TodayState> {
     emit(state.copyWith(
       musclePain: musclePain,
       status: Formz.validate([state.fever, state.cough, state.breathDifficulty, state.fatigue,
-        musclePain, state.smellLack, state.tasteLack, state.diarrhea]),
+        musclePain, state.smellLack, state.tasteLack, state.diarrhea, state.actualSymptoms,
+        state.covidContact, state.covidSuspectContact, state.covidHomemate, state.covidSuspectHomemate]),
     ));
   }
 
@@ -64,7 +69,8 @@ class TodayCubit extends Cubit<TodayState> {
     emit(state.copyWith(
       smellLack: smellLack,
       status: Formz.validate([state.fever, state.cough, state.breathDifficulty, state.fatigue,
-        state.musclePain, smellLack, state.tasteLack, state.diarrhea]),
+        state.musclePain, smellLack, state.tasteLack, state.diarrhea, state.actualSymptoms,
+        state.covidContact, state.covidSuspectContact, state.covidHomemate, state.covidSuspectHomemate]),
     ));
   }
 
@@ -73,7 +79,8 @@ class TodayCubit extends Cubit<TodayState> {
     emit(state.copyWith(
       tasteLack: tasteLack,
       status: Formz.validate([state.fever, state.cough, state.breathDifficulty, state.fatigue,
-        state.musclePain, state.smellLack, tasteLack, state.diarrhea]),
+        state.musclePain, state.smellLack, tasteLack, state.diarrhea, state.actualSymptoms,
+        state.covidContact, state.covidSuspectContact, state.covidHomemate, state.covidSuspectHomemate]),
     ));
   }
 
@@ -82,7 +89,58 @@ class TodayCubit extends Cubit<TodayState> {
     emit(state.copyWith(
       diarrhea: diarrhea,
       status: Formz.validate([state.fever, state.cough, state.breathDifficulty, state.fatigue, state.musclePain,
-        state.smellLack, state.tasteLack, diarrhea]),
+        state.smellLack, state.tasteLack, diarrhea, state.actualSymptoms,
+        state.covidContact, state.covidSuspectContact, state.covidHomemate, state.covidSuspectHomemate]),
+    ));
+  }
+
+  void actualSymptomsChanged(String value) {
+    final actualSymptoms = ActualSymptomsInput.dirty(value);
+    emit(state.copyWith(
+      actualSymptoms: actualSymptoms,
+      status: Formz.validate([state.fever, state.cough, state.breathDifficulty, state.fatigue, state.musclePain,
+        state.smellLack, state.tasteLack, state.diarrhea, actualSymptoms,
+        state.covidContact, state.covidSuspectContact, state.covidHomemate, state.covidSuspectHomemate]),
+    ));
+  }
+
+  void covidContactChanged(bool value) {
+    final covidContact = CovidContactInput.dirty(value);
+    emit(state.copyWith(
+      covidContact: covidContact,
+      status: Formz.validate([state.fever, state.cough, state.breathDifficulty, state.fatigue, state.musclePain,
+        state.smellLack, state.tasteLack, state.diarrhea, state.actualSymptoms,
+        covidContact, state.covidSuspectContact, state.covidHomemate, state.covidSuspectHomemate]),
+    ));
+  }
+
+  void covidSuspectContactChanged(bool value) {
+    final covidSuspectContact = CovidSuspectContactInput.dirty(value);
+    emit(state.copyWith(
+      covidSuspectContact: covidSuspectContact,
+      status: Formz.validate([state.fever, state.cough, state.breathDifficulty, state.fatigue, state.musclePain,
+        state.smellLack, state.tasteLack, state.diarrhea, state.actualSymptoms,
+        state.covidContact, covidSuspectContact, state.covidHomemate, state.covidSuspectHomemate]),
+    ));
+  }
+
+  void covidHomemateChanged(bool value) {
+    final covidHomemate = CovidHomemateInput.dirty(value);
+    emit(state.copyWith(
+      covidHomemate: covidHomemate,
+      status: Formz.validate([state.fever, state.cough, state.breathDifficulty, state.fatigue, state.musclePain,
+        state.smellLack, state.tasteLack, state.diarrhea, state.actualSymptoms,
+        state.covidContact, state.covidSuspectContact, covidHomemate, state.covidSuspectHomemate]),
+    ));
+  }
+
+  void covidSuspectHomemateChanged(bool value) {
+    final covidSuspectHomemate = CovidSuspectHomemateInput.dirty(value);
+    emit(state.copyWith(
+      covidSuspectHomemate: covidSuspectHomemate,
+      status: Formz.validate([state.fever, state.cough, state.breathDifficulty, state.fatigue, state.musclePain,
+        state.smellLack, state.tasteLack, state.diarrhea, state.actualSymptoms,
+        state.covidContact, state.covidSuspectContact, state.covidHomemate, covidSuspectHomemate]),
     ));
   }
 
@@ -96,6 +154,10 @@ class TodayCubit extends Cubit<TodayState> {
       case 'smellLack': smellLackChanged(value); break;
       case 'tasteLack': tasteLackChanged(value); break;
       case 'diarrhea': diarrheaChanged(value); break;
+      case 'covidContact': covidContactChanged(value); break;
+      case 'covidSuspectContact': covidSuspectContactChanged(value); break;
+      case 'covidHomemate': covidHomemateChanged(value); break;
+      case 'covidSuspectHomemate': covidSuspectHomemateChanged(value); break;
     }
   }
 
@@ -112,6 +174,11 @@ class TodayCubit extends Cubit<TodayState> {
           smellLack: state.smellLack.value,
           tasteLack: state.tasteLack.value,
           diarrhea: state.diarrhea.value,
+          actualSymptoms: state.actualSymptoms.value,
+          covidContact: state.covidContact.value,
+          covidSuspectContact: state.covidSuspectContact.value,
+          covidHomemate: state.covidHomemate.value,
+          covidSuspectHomemate: state.covidSuspectHomemate.value,
           date: DateTime.now()));
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on Exception {

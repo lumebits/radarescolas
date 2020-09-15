@@ -11,10 +11,17 @@ class SymptomsEntity extends Equatable {
   final bool smellLack;
   final bool tasteLack;
   final bool diarrhea;
+  final String actualSymptoms;
+  final bool covidContact;
+  final bool covidSuspectContact;
+  final bool covidHomemate;
+  final bool covidSuspectHomemate;
   final DateTime date;
 
   const SymptomsEntity(this.id, this.fever, this.cough, this.breathDifficulty, this.fatigue,
-      this.musclePain, this.smellLack, this.tasteLack, this.diarrhea, this.date);
+      this.musclePain, this.smellLack, this.tasteLack, this.diarrhea,
+      this.actualSymptoms, this.covidContact, this.covidSuspectContact,
+      this.covidHomemate, this.covidSuspectHomemate, this.date);
 
   Map<String, Object> toJson() {
     return {
@@ -27,20 +34,28 @@ class SymptomsEntity extends Equatable {
       "smellLack": smellLack,
       "tasteLack": tasteLack,
       "diarrhea": diarrhea,
+      "actualSymptoms": actualSymptoms,
+      "covidContact": covidContact,
+      "covidSuspectContact": covidSuspectContact,
+      "covidHomemate": covidHomemate,
+      "covidSuspectHomemate": covidSuspectHomemate,
       "date": date,
     };
   }
 
   @override
   List<Object> get props => [id, fever, cough, breathDifficulty, fatigue, musclePain,
-    smellLack, tasteLack, diarrhea, date];
+    smellLack, tasteLack, diarrhea, actualSymptoms, covidContact, covidSuspectContact,
+    covidHomemate, covidSuspectHomemate, date];
 
   @override
   String toString() {
     return 'SymptomsEntity { id: $id , fever: $fever, cough: $cough, '
         'breathDifficulty: $breathDifficulty, fatigue: $fatigue, '
         'musclePain: $musclePain, smellLack: $smellLack, tasteLack: $tasteLack, '
-        'diarrhea: $diarrhea, date: $date}';
+        'diarrhea: $diarrhea, actualSymptoms: $actualSymptoms, covidContact: $covidContact, '
+        'covidSuspectContact: $covidSuspectContact, covidHomemate: $covidHomemate, '
+        'covidSuspectHomemate: $covidSuspectHomemate, date: $date}';
   }
 
   static SymptomsEntity fromJson(Map<String, Object> json) {
@@ -54,6 +69,11 @@ class SymptomsEntity extends Equatable {
       json["smellLack"] as bool,
       json["tasteLack"] as bool,
       json["diarrhea"] as bool,
+      json["actualSymptoms"] as String,
+      json["covidContact"] as bool,
+      json["covidSuspectContact"] as bool,
+      json["covidHomemate"] as bool,
+      json["covidSuspectHomemate"] as bool,
       json["date"] as DateTime,
     );
   }
@@ -69,6 +89,11 @@ class SymptomsEntity extends Equatable {
       snap.get('smellLack'),
       snap.get('tasteLack'),
       snap.get('diarrhea'),
+      snap.get('actualSymptoms'),
+      snap.get('covidContact'),
+      snap.get('covidSuspectContact'),
+      snap.get('covidHomemate'),
+      snap.get('covidSuspectHomemate'),
       snap.get('date'),
     );
   }
@@ -83,6 +108,11 @@ class SymptomsEntity extends Equatable {
       "smellLack": smellLack,
       "tasteLack": tasteLack,
       "diarrhea": diarrhea,
+      "actualSymptoms": actualSymptoms,
+      "covidContact": covidContact,
+      "covidSuspectContact": covidSuspectContact,
+      "covidHomemate": covidHomemate,
+      "covidSuspectHomemate": covidSuspectHomemate,
       "date": date
     };
   }

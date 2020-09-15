@@ -10,6 +10,11 @@ class TodayState extends Equatable {
     this.smellLack = const SmellLackInput.pure(),
     this.tasteLack = const TasteLackInput.pure(),
     this.diarrhea = const DiarrheaInput.pure(),
+    this.actualSymptoms = const ActualSymptomsInput.pure(),
+    this.covidContact = const CovidContactInput.pure(),
+    this.covidSuspectContact = const CovidSuspectContactInput.pure(),
+    this.covidHomemate = const CovidHomemateInput.pure(),
+    this.covidSuspectHomemate = const CovidSuspectHomemateInput.pure(),
     this.status = FormzStatus.pure,
   });
 
@@ -21,11 +26,17 @@ class TodayState extends Equatable {
   final SmellLackInput smellLack;
   final TasteLackInput tasteLack;
   final DiarrheaInput diarrhea;
+  final ActualSymptomsInput actualSymptoms;
+  final CovidContactInput covidContact;
+  final CovidSuspectContactInput covidSuspectContact;
+  final CovidHomemateInput covidHomemate;
+  final CovidSuspectHomemateInput covidSuspectHomemate;
   final FormzStatus status;
 
   @override
   List<Object> get props => [fever, cough, breathDifficulty, fatigue, musclePain,
-    smellLack, tasteLack, diarrhea, status];
+    smellLack, tasteLack, diarrhea, actualSymptoms, covidContact, covidSuspectContact,
+    covidHomemate, covidSuspectHomemate, status];
 
   FormzInput field (String field) {
     switch (field) {
@@ -37,6 +48,11 @@ class TodayState extends Equatable {
       case 'smellLack': return smellLack;
       case 'tasteLack': return tasteLack;
       case 'diarrhea': return diarrhea;
+      case 'actualSymptoms': return actualSymptoms;
+      case 'covidContact': return covidContact;
+      case 'covidSuspectContact': return covidSuspectContact;
+      case 'covidHomemate': return covidHomemate;
+      case 'covidSuspectHomemate': return covidSuspectHomemate;
     }
   }
 
@@ -52,6 +68,11 @@ class TodayState extends Equatable {
     SmellLackInput smellLack,
     TasteLackInput tasteLack,
     DiarrheaInput diarrhea,
+    ActualSymptomsInput actualSymptoms,
+    CovidContactInput covidContact,
+    CovidSuspectContactInput covidSuspectContact,
+    CovidHomemateInput covidHomemate,
+    CovidSuspectHomemateInput covidSuspectHomemate,
     FormzStatus status,
   }) {
     return TodayState(
@@ -63,6 +84,11 @@ class TodayState extends Equatable {
       smellLack: smellLack ?? this.smellLack,
       tasteLack: tasteLack ?? this.tasteLack,
       diarrhea: diarrhea ?? this.diarrhea,
+      actualSymptoms: actualSymptoms ?? this.actualSymptoms,
+      covidContact: covidContact ?? this.covidContact,
+      covidSuspectContact: covidSuspectContact ?? this.covidSuspectContact,
+      covidHomemate: covidHomemate ?? this.covidHomemate,
+      covidSuspectHomemate: covidSuspectHomemate ?? this.covidSuspectHomemate,
       status: status ?? this.status,
     );
   }

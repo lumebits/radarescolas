@@ -76,11 +76,15 @@ class Info extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          _TeachersInfo(),
-          _StudentsInfo()
-        ],
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 10.0),
+        child: Wrap(
+          runSpacing: 8.0,
+          children: [
+            _TeachersInfo(),
+            _StudentsInfo()
+          ],
+        ),
       ),
     );
   }

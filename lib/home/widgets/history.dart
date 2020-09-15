@@ -5,6 +5,9 @@ class History extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("History"));
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 10.0),
+      child: Center(child: Text("History")),
+    );
   }
 }

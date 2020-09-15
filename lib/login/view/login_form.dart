@@ -35,7 +35,6 @@ class LoginForm extends StatelessWidget {
             ,),
             const SizedBox(height: 16.0),
             _EmailInput(),
-            const SizedBox(height: 8.0),
             _PasswordInput(),
             const SizedBox(height: 8.0),
             _LoginButton(),

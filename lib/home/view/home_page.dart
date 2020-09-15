@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radarescolas/authentication/authentication.dart';
 import 'package:radarescolas/home/home.dart';
 import 'package:radarescolas/navigation/navigation.dart';
+import 'package:radarescolas/today/today.dart';
 
 class HomePage extends StatelessWidget {
   static Route route() {
@@ -15,18 +16,29 @@ class HomePage extends StatelessWidget {
       builder: (context, activeTab) {
         return Scaffold(
           appBar: AppBar(
+
             title: const Text('Radar Escolas'),
             actions: <Widget>[
-              IconButton(
-                key: const Key('homePage_logout_iconButton'),
-                icon: const Icon(Icons.exit_to_app),
-                onPressed: () => context
-                    .bloc<AuthenticationBloc>()
-                    .add(AuthenticationLogoutRequested()),
-              )
+              PopupMenuButton<String>(
+                onSelected: (action) {
+                  switch (action) {
+                    case 'Logout':
+                      context
+                          .bloc<AuthenticationBloc>()
+                          .add(AuthenticationLogoutRequested());
+                      break;
+                  }
+                },
+                itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
+                  PopupMenuItem<String>(
+                    value: 'Logout',
+                    child: Text('Pechar sesión'),
+                  )
+                ]
+              ),
             ],
           ),
-          body: activeTab == AppTab.today ? Today() : (activeTab == AppTab.history ? History() : Info()),
+          body: activeTab == AppTab.today ? TodayPage() : (activeTab == AppTab.history ? History() : Info()),
           bottomNavigationBar: TabSelector(
             activeTab: activeTab,
             onTabSelected: (tab) =>

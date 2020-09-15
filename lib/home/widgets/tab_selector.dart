@@ -31,7 +31,7 @@ class TabSelector extends StatelessWidget {
                     ? const Key('history_tab')
                     : const Key('info_tab')),
           ),
-          title: Text(tab == AppTab.today
+          label: (tab == AppTab.today
               ? 'Hoxe'
               : (tab == AppTab.history ? 'Historial' : 'Info')),
         );

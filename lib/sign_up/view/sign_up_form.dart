@@ -16,7 +16,7 @@ class SignUpForm extends StatelessWidget {
           Scaffold.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              const SnackBar(content: Text('Sign Up Failure')),
+              const SnackBar(content: Text('Erro no rexistro')),
             );
         }
       },
@@ -25,6 +25,15 @@ class SignUpForm extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Image.asset('assets/icon.png', scale: 4,),
+            const SizedBox(height: 8.0),
+            Text('Radar Escolas',
+              style: TextStyle(
+                  fontSize: theme.textTheme.headline3.fontSize,
+                  fontWeight: FontWeight.bold
+              )
+              ,),
+            const SizedBox(height: 16.0),
             ToggleSwitch(
                 minWidth: 120.0,
                 initialLabelIndex: 0,

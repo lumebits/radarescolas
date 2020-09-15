@@ -1,9 +1,9 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:radarescolas/login/login.dart';
-import 'package:radarescolas/sign_up/sign_up.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:formz/formz.dart';
+import 'package:radarescolas/login/login.dart';
+import 'package:radarescolas/sign_up/sign_up.dart';
 
 import '../../theme.dart';
 
@@ -25,13 +25,21 @@ class LoginForm extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Image.asset('assets/icon.png', scale: 4,),
+            const SizedBox(height: 8.0),
+            Text('Radar Escolas',
+              style: TextStyle(
+                fontSize: theme.textTheme.headline3.fontSize,
+                fontWeight: FontWeight.bold
+              )
+            ,),
             const SizedBox(height: 16.0),
             _EmailInput(),
             const SizedBox(height: 8.0),
             _PasswordInput(),
             const SizedBox(height: 8.0),
             _LoginButton(),
-            const SizedBox(height: 8.0),
+            const SizedBox(height: 16.0),
             _GoogleLoginButton(),
             const SizedBox(height: 4.0),
             _SignUpButton(),
@@ -55,7 +63,8 @@ class _EmailInput extends StatelessWidget {
           decoration: InputDecoration(
             labelText: 'Correo electrónico',
             helperText: '',
-            errorText: state.email.invalid ? 'Correo electrónico non válido' : null,
+            errorText:
+                state.email.invalid ? 'Correo electrónico non válido' : null,
           ),
         );
       },
@@ -94,16 +103,16 @@ class _LoginButton extends StatelessWidget {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
             : RaisedButton(
-          key: const Key('loginForm_continue_raisedButton'),
-          child: const Text('INICIAR SESIÓN'),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          color: theme.primaryColor,
-          onPressed: state.status.isValidated
-              ? () => context.bloc<LoginCubit>().logInWithCredentials()
-              : null,
-        );
+                key: const Key('loginForm_continue_raisedButton'),
+                child: const Text('INICIAR SESIÓN'),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                color: theme.primaryColor,
+                onPressed: state.status.isValidated
+                    ? () => context.bloc<LoginCubit>().logInWithCredentials()
+                    : null,
+              );
       },
     );
   }

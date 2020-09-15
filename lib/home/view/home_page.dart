@@ -16,15 +16,26 @@ class HomePage extends StatelessWidget {
       builder: (context, activeTab) {
         return Scaffold(
           appBar: AppBar(
+
             title: const Text('Radar Escolas'),
             actions: <Widget>[
-              IconButton(
-                key: const Key('homePage_logout_iconButton'),
-                icon: const Icon(Icons.exit_to_app),
-                onPressed: () => context
-                    .bloc<AuthenticationBloc>()
-                    .add(AuthenticationLogoutRequested()),
-              )
+              PopupMenuButton<String>(
+                onSelected: (action) {
+                  switch (action) {
+                    case 'Logout':
+                      context
+                          .bloc<AuthenticationBloc>()
+                          .add(AuthenticationLogoutRequested());
+                      break;
+                  }
+                },
+                itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
+                  PopupMenuItem<String>(
+                    value: 'Logout',
+                    child: Text('Pechar sesión'),
+                  )
+                ]
+              ),
             ],
           ),
           body: activeTab == AppTab.today ? TodayPage() : (activeTab == AppTab.history ? History() : Info()),

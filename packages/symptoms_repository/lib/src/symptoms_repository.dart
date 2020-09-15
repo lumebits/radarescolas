@@ -3,11 +3,9 @@ import 'dart:async';
 import 'package:symptoms_repository/symptoms_repository.dart';
 
 abstract class SymptomsRepository {
-  Future<void> addNewSymptoms(Symptoms todo);
+  Future<void> registerSymptoms(Symptoms symptoms, String uid);
 
-  Future<void> deleteSymptoms(Symptoms todo);
+  Stream<List<Symptoms>> listSymptoms(String uid);
 
-  Stream<List<Symptoms>> symptoms();
-
-  Future<void> updateSymptoms(Symptoms todo);
+  Future<void> updateSymptoms(Symptoms symptoms, String uid);
 }

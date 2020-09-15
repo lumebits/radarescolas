@@ -1,3 +1,4 @@
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radarescolas/today/today.dart';
@@ -10,8 +11,7 @@ class TodayPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<TodayCubit>(
         create: (_) => TodayCubit(
-              FirebaseSymptomsRepository(),
-            ),
+            FirebaseSymptomsRepository(), AuthenticationRepository()),
         child: TodayForm());
   }
 }

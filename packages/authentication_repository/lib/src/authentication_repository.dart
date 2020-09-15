@@ -43,6 +43,11 @@ class AuthenticationRepository {
     });
   }
 
+  /// Gets current user id
+  String currentUserId() {
+    return _firebaseAuth.currentUser.uid;
+  }
+
   /// Creates a new user with the provided [role], [email] and [password].
   ///
   /// Throws a [SignUpFailure] if an exception occurs.
@@ -71,7 +76,7 @@ class AuthenticationRepository {
     try {
       final googleUser = await _googleSignIn.signIn();
       final googleAuth = await googleUser.authentication;
-      final credential = GoogleAuthProvider.getCredential(
+      final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );

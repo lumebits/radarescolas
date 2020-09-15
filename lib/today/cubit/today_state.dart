@@ -54,6 +54,7 @@ class TodayState extends Equatable {
       case 'covidHomemate': return covidHomemate;
       case 'covidSuspectHomemate': return covidSuspectHomemate;
     }
+    return null;
   }
 
   @override

@@ -20,7 +20,8 @@ class FirebaseSymptomsRepository implements SymptomsRepository {
   Stream<List<Symptoms>> listSymptoms(String uid) {
     return userDataCollection
         .doc(uid)
-        .collection('symtoms')
+        .collection('symptoms')
+        .orderBy('date', descending: true)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs
@@ -33,7 +34,7 @@ class FirebaseSymptomsRepository implements SymptomsRepository {
   Future<void> updateSymptoms(Symptoms update, String uid) {
     return userDataCollection
         .doc(uid)
-        .collection('symtoms')
+        .collection('symptoms')
         .doc(update.id)
         .update(update.toEntity().toDocument());
   }

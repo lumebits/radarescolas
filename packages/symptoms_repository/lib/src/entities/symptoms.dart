@@ -94,7 +94,7 @@ class SymptomsEntity extends Equatable {
       snap.get('covidSuspectContact'),
       snap.get('covidHomemate'),
       snap.get('covidSuspectHomemate'),
-      snap.get('date'),
+      snap.get('date').toDate(),
     );
   }
 

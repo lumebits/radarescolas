@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../theme.dart';
+
 var commonText = new RichText(
   textAlign: TextAlign.justify,
   text: new TextSpan(
-    style: new TextStyle(
-        fontSize: 14.0,
-        color: Colors.black
-    ),
+    style: theme.textTheme.bodyText1,
     children: <TextSpan>[
       new TextSpan(text: 'O resultado da enquisa '),
       new TextSpan(text: 'NON ', style: new TextStyle(fontWeight: FontWeight.bold)),
@@ -21,10 +20,7 @@ var commonText = new RichText(
 var teachersText = new RichText(
   textAlign: TextAlign.justify,
   text: new TextSpan(
-    style: new TextStyle(
-      fontSize: 14.0,
-      color: Colors.black
-    ),
+    style: theme.textTheme.bodyText1,
     children: <TextSpan>[
       new TextSpan(text: 'Protocolo a seguir polo persoal en caso de detectar un '
       'ou mais síntomas:\n\n', style: new TextStyle(fontWeight: FontWeight.bold)),
@@ -47,10 +43,7 @@ var teachersText = new RichText(
 var studentsText = new RichText(
   textAlign: TextAlign.justify,
   text: new TextSpan(
-    style: new TextStyle(
-        fontSize: 14.0,
-        color: Colors.black
-    ),
+    style: theme.textTheme.bodyText1,
     children: <TextSpan>[
       new TextSpan(text: 'Protocolo a seguir polo alumno (ou pais/nais ou titores legais) '
           'en caso de detectar un ou mais síntomas:\n\n', style: new TextStyle(fontWeight: FontWeight.bold)),

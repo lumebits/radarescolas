@@ -10,73 +10,71 @@ class TodayForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: BlocListener<TodayCubit, TodayState>(
-        listener: (context, state) {
-          if (state.status.isSubmissionFailure) {
-            Scaffold.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                const SnackBar(
-                    content:
-                        Text('Non se puido gardar, verifica a tua conexión')),
-              );
-          }
-        },
-        child: Align(
-          alignment: const Alignment(0, -1 / 3),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 8.0),
-              _QuestionsCard(
-                  icon: Icons.calendar_today,
-                  title: 'Presentou nas últimas dúas semanas?',
-                  children: [
-                    const SizedBox(height: 12.0),
-                    Text('SÍNTOMAS RESPIRATORIOS?',
-                        style: TextStyle(
-                            fontSize: theme.textTheme.headline5.fontSize,
-                            fontWeight: FontWeight.bold)),
-                    _CheckboxField(field: 'fever', icon: FontAwesomeIcons.thermometerFull, text: 'Febre maior de 37,5°'),
-                    _CheckboxField(field: 'cough', icon: FontAwesomeIcons.headSideCough, text: 'Tose seca'),
-                    _CheckboxField(field: 'breathDifficulty', icon: FontAwesomeIcons.lungsVirus, text: 'Dificultade respiratoria'),
-                    Text('OUTROS SÍNTOMAS?',
-                        style: TextStyle(
-                            fontSize: theme.textTheme.headline5.fontSize,
-                            fontWeight: FontWeight.bold)),
-                    _CheckboxField(field: 'fatigue', icon: FontAwesomeIcons.solidTired, text: 'Fatiga severa (cansazo)'),
-                    _CheckboxField(field: 'musclePain', icon: FontAwesomeIcons.dumbbell, text: 'Dor muscular'),
-                    _CheckboxField(field: 'smellLack', icon: FontAwesomeIcons.mugHot, text: 'Falta de olfacto'),
-                    _CheckboxField(field: 'tasteLack', icon: FontAwesomeIcons.pepperHot, text: 'Falta de gusto'),
-                    _CheckboxField(field: 'diarrhea', icon: FontAwesomeIcons.toilet, text: 'Diarrea'),
-                  ]),
-              const SizedBox(height: 8.0),
-              _QuestionsCard(
-                  icon: FontAwesomeIcons.headSideVirus,
-                  title: 'Ten actualmente algún dos síntomas?',
-                  children: [
-                    _FreetextField(field:'actualSymptoms', text: 'Sinalar cales e cando comezaron')
-                  ]),
-              const SizedBox(height: 8.0),
-              _QuestionsCard(
-                  icon: FontAwesomeIcons.users,
-                  title: 'Tivo contacto nas últimas 2 semanas?',
-                  children: [
-                    _CheckboxField(field: 'covidContact', icon: FontAwesomeIcons.virus, text: 'Cunha persoa COVID-19+ confirmado'),
-                    _CheckboxField(field: 'covidSuspectContact', icon: FontAwesomeIcons.headSideMask, text: 'Cunha persoa en illamento por sospeita de infección pola COVID-19'),
-                  ]),
-              const SizedBox(height: 8.0),
-              _QuestionsCard(
-                  icon: FontAwesomeIcons.houseUser,
-                  title: 'Conviviu nas últimas 2 semanas?',
-                  children: [
-                    _CheckboxField(field: 'covidHomemate', icon: FontAwesomeIcons.virus, text: 'Cunha persoa COVID-19+ confirmado'),
-                    _CheckboxField(field: 'covidSuspectHomemate', icon: FontAwesomeIcons.headSideMask, text: 'Cunha persoa en illamento por sospeita de infección pola COVID-19'),
-                  ]),
-              const SizedBox(height: 8.0),
-              saveButton(),
-              const SizedBox(height: 8.0),
-            ],
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 10.0),
+        child: BlocListener<TodayCubit, TodayState>(
+          listener: (context, state) {
+            if (state.status.isSubmissionFailure) {
+              Scaffold.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  const SnackBar(
+                      content:
+                          Text('Non se puido gardar, verifica a tua conexión')),
+                );
+            }
+          },
+          child: Align(
+            alignment: const Alignment(0, -1 / 3),
+            child: Wrap(
+              runSpacing: 8.0,
+              alignment: WrapAlignment.center,
+              children: [
+                _QuestionsCard(
+                    icon: Icons.calendar_today,
+                    title: 'Presentou nas últimas dúas semanas?',
+                    children: [
+                      const SizedBox(height: 12.0),
+                      Text('SÍNTOMAS RESPIRATORIOS?',
+                          style: TextStyle(
+                              fontSize: theme.textTheme.headline5.fontSize,
+                              fontWeight: FontWeight.bold)),
+                      _CheckboxField(field: 'fever', icon: FontAwesomeIcons.thermometerFull, text: 'Febre maior de 37,5°'),
+                      _CheckboxField(field: 'cough', icon: FontAwesomeIcons.headSideCough, text: 'Tose seca'),
+                      _CheckboxField(field: 'breathDifficulty', icon: FontAwesomeIcons.lungsVirus, text: 'Dificultade respiratoria'),
+                      Text('OUTROS SÍNTOMAS?',
+                          style: TextStyle(
+                              fontSize: theme.textTheme.headline5.fontSize,
+                              fontWeight: FontWeight.bold)),
+                      _CheckboxField(field: 'fatigue', icon: FontAwesomeIcons.solidTired, text: 'Fatiga severa (cansazo)'),
+                      _CheckboxField(field: 'musclePain', icon: FontAwesomeIcons.dumbbell, text: 'Dor muscular'),
+                      _CheckboxField(field: 'smellLack', icon: FontAwesomeIcons.mugHot, text: 'Falta de olfacto'),
+                      _CheckboxField(field: 'tasteLack', icon: FontAwesomeIcons.pepperHot, text: 'Falta de gusto'),
+                      _CheckboxField(field: 'diarrhea', icon: FontAwesomeIcons.toilet, text: 'Diarrea'),
+                    ]),
+                _QuestionsCard(
+                    icon: FontAwesomeIcons.headSideVirus,
+                    title: 'Ten actualmente algún dos síntomas?',
+                    children: [
+                      _FreetextField(field:'actualSymptoms', text: 'Sinalar cales e cando comezaron')
+                    ]),
+                _QuestionsCard(
+                    icon: FontAwesomeIcons.users,
+                    title: 'Tivo contacto nas últimas 2 semanas?',
+                    children: [
+                      _CheckboxField(field: 'covidContact', icon: FontAwesomeIcons.virus, text: 'Cunha persoa COVID-19+ confirmado'),
+                      _CheckboxField(field: 'covidSuspectContact', icon: FontAwesomeIcons.headSideMask, text: 'Cunha persoa en illamento por sospeita de infección pola COVID-19'),
+                    ]),
+                _QuestionsCard(
+                    icon: FontAwesomeIcons.houseUser,
+                    title: 'Conviviu nas últimas 2 semanas?',
+                    children: [
+                      _CheckboxField(field: 'covidHomemate', icon: FontAwesomeIcons.virus, text: 'Cunha persoa COVID-19+ confirmado'),
+                      _CheckboxField(field: 'covidSuspectHomemate', icon: FontAwesomeIcons.headSideMask, text: 'Cunha persoa en illamento por sospeita de infección pola COVID-19'),
+                    ]),
+                saveButton()
+              ],
+            ),
           ),
         ),
       ),

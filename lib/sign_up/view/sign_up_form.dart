@@ -54,7 +54,6 @@ class SignUpForm extends StatelessWidget {
             ),
             const SizedBox(height: 36.0),
             _EmailInput(),
-            const SizedBox(height: 8.0),
             _PasswordInput(),
             const SizedBox(height: 8.0),
             _SignUpButton(),

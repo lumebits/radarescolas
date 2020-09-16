@@ -10,8 +10,9 @@ class TodayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<TodayCubit>(
-        create: (_) => TodayCubit(
-            FirebaseSymptomsRepository(), AuthenticationRepository()),
+        create: (_) =>
+            TodayCubit(FirebaseSymptomsRepository(), AuthenticationRepository())
+              ..loadToday(),
         child: TodayForm());
   }
 }

@@ -344,10 +344,21 @@ class TodayCubit extends Cubit<TodayState> {
     }
   }
 
+  Future<void> loadToday() async {
+    emit(state.copyWith(loadTodayInProgress: true));
+    await symptomsRepository
+        .todaySymptoms(authenticationRepository.currentUserId())
+        .then((_) => emit(
+            state.copyWith(todayCompleted: true, loadTodayInProgress: false)))
+        .catchError((_) => emit(state.copyWith(loadTodayInProgress: false)));
+  }
+
   Future<void> saveTodayForm() async {
     if (!state.status.isValidated) return;
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {
+      emit(state.copyWith(
+          status: FormzStatus.submissionInProgress, todayCompleted: true));
       await symptomsRepository.registerSymptoms(
           Symptoms(null,
               fever: state.fever.value,

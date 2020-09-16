@@ -15,7 +15,9 @@ class TodayState extends Equatable {
     this.covidSuspectContact = const CovidSuspectContactInput.pure(),
     this.covidHomemate = const CovidHomemateInput.pure(),
     this.covidSuspectHomemate = const CovidSuspectHomemateInput.pure(),
-    this.status = FormzStatus.pure,
+    this.status = FormzStatus.valid,
+    this.loadTodayInProgress = false,
+    this.todayCompleted = false,
   });
 
   final FeverInput fever;
@@ -32,11 +34,13 @@ class TodayState extends Equatable {
   final CovidHomemateInput covidHomemate;
   final CovidSuspectHomemateInput covidSuspectHomemate;
   final FormzStatus status;
+  final bool loadTodayInProgress;
+  final bool todayCompleted;
 
   @override
   List<Object> get props => [fever, cough, breathDifficulty, fatigue, musclePain,
     smellLack, tasteLack, diarrhea, actualSymptoms, covidContact, covidSuspectContact,
-    covidHomemate, covidSuspectHomemate, status];
+    covidHomemate, covidSuspectHomemate, status, loadTodayInProgress, todayCompleted];
 
   FormzInput field (String field) {
     switch (field) {
@@ -75,6 +79,8 @@ class TodayState extends Equatable {
     CovidHomemateInput covidHomemate,
     CovidSuspectHomemateInput covidSuspectHomemate,
     FormzStatus status,
+    bool loadTodayInProgress,
+    bool todayCompleted
   }) {
     return TodayState(
       fever: fever ?? this.fever,
@@ -91,6 +97,8 @@ class TodayState extends Equatable {
       covidHomemate: covidHomemate ?? this.covidHomemate,
       covidSuspectHomemate: covidSuspectHomemate ?? this.covidSuspectHomemate,
       status: status ?? this.status,
+      loadTodayInProgress: loadTodayInProgress ?? this.loadTodayInProgress,
+      todayCompleted: todayCompleted ?? this.todayCompleted,
     );
   }
 }

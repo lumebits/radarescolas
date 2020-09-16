@@ -30,6 +30,22 @@ class FirebaseSymptomsRepository implements SymptomsRepository {
     });
   }
 
+  Future<Symptoms> todaySymptoms(String uid) {
+    DateTime now = new DateTime.now();
+    DateTime today = new DateTime(now.year, now.month, now.day);
+    return userDataCollection
+        .doc(uid)
+        .collection('symptoms')
+        .where('date', isGreaterThanOrEqualTo: today)
+        .orderBy('date', descending: true)
+        .snapshots()
+        .first
+        .asStream()
+        .map((snapshot) => Symptoms.fromEntity(
+            SymptomsEntity.fromSnapshot(snapshot.docs.first)))
+        .first;
+  }
+
   @override
   Future<void> updateSymptoms(Symptoms update, String uid) {
     return userDataCollection

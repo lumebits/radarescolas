@@ -8,4 +8,6 @@ abstract class SymptomsRepository {
   Stream<List<Symptoms>> listSymptoms(String uid);
 
   Future<void> updateSymptoms(Symptoms symptoms, String uid);
+
+  Future<Symptoms> todaySymptoms(String uid);
 }

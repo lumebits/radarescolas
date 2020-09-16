@@ -243,6 +243,7 @@ class _CheckboxField extends StatelessWidget {
         value: value,
         title: Text(text),
         secondary: Icon(icon),
+        onChanged: null,
       );
     } else {
       return BlocBuilder<TodayCubit, TodayState>(
@@ -280,8 +281,6 @@ class _FreetextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (readOnly) {
-      TextEditingController _textEditingController =
-          TextEditingController(text: value);
       return Padding(
           padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
           child: Text(value.isNotEmpty ? value : 'N/A',

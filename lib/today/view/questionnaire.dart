@@ -298,7 +298,8 @@ class _FreetextField extends StatelessWidget {
               child: TextField(
                 onChanged: (value) =>
                     context.bloc<TodayCubit>().actualSymptomsChanged(value),
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
                 decoration: InputDecoration(
                   labelText: text,
                   helperText: '',

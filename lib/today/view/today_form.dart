@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:radarescolas/today/today.dart';
 
+import '../../theme.dart';
+
 class TodayForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -31,11 +33,27 @@ class TodayForm extends StatelessWidget {
               } else if (state.todayCompleted) {
                 return Padding(
                   padding: const EdgeInsets.all(30.0),
-                  child: FlareActor(
-                    'assets/otp-verification.flr',
-                    alignment: Alignment.center,
-                    fit: BoxFit.contain,
-                    animation: 'verify-otp',
+                  child: Column(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.6,
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        child:
+                          FlareActor(
+                            'assets/otp-verification.flr',
+                            alignment: Alignment.center,
+                            fit: BoxFit.scaleDown,
+                            animation: 'verify-otp',
+                          ),
+                      ),
+                      Text('Cuestionario do día feito!',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: theme.textTheme.headline3.fontSize,
+                            color: theme.primaryColor,
+                        )
+                      ),
+                    ],
                   ),
                 );
               } else {

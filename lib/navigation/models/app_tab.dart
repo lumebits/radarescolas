@@ -1,1 +1,1 @@
-enum AppTab { today, history, info }
+enum AppTab { today, info, history }

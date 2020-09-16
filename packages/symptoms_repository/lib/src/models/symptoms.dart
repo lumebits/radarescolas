@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+
 import '../entities/entities.dart';
 
 @immutable
@@ -19,17 +20,39 @@ class Symptoms {
   final bool covidSuspectHomemate;
   final DateTime date;
 
-  Symptoms(String id, {this.fever = false, this.cough = false,
-  this.breathDifficulty = false, this.fatigue = false, this.musclePain = false,
-    this.smellLack = false, this.tasteLack = false, this.diarrhea = false, this.actualSymptoms = '',
-    this.covidContact, this.covidSuspectContact, this.covidHomemate, this.covidSuspectHomemate,
-    this.date})
+  Symptoms(String id,
+      {this.fever = false,
+      this.cough = false,
+      this.breathDifficulty = false,
+      this.fatigue = false,
+      this.musclePain = false,
+      this.smellLack = false,
+      this.tasteLack = false,
+      this.diarrhea = false,
+      this.actualSymptoms = '',
+      this.covidContact,
+      this.covidSuspectContact,
+      this.covidHomemate,
+      this.covidSuspectHomemate,
+      this.date})
       : this.id = id;
 
-  Symptoms copyWith({String id, bool fever, bool cough, bool breathDifficulty, bool fatigue,
-    bool musclePain, bool smellLack, bool tasteLack, bool diarrhea,
-    String actualSymptoms, bool covidContact, bool covidSuspectContact, bool covidHomemate,
-    bool covidSuspectHomemate, DateTime date}) {
+  Symptoms copyWith(
+      {String id,
+      bool fever,
+      bool cough,
+      bool breathDifficulty,
+      bool fatigue,
+      bool musclePain,
+      bool smellLack,
+      bool tasteLack,
+      bool diarrhea,
+      String actualSymptoms,
+      bool covidContact,
+      bool covidSuspectContact,
+      bool covidHomemate,
+      bool covidSuspectHomemate,
+      DateTime date}) {
     return Symptoms(
       id ?? this.id,
       fever: fever ?? this.fever,
@@ -49,33 +72,59 @@ class Symptoms {
     );
   }
 
+  bool hasAnySymptom() {
+    return (this.fever ||
+        this.cough ||
+        this.breathDifficulty ||
+        this.fatigue ||
+        this.musclePain ||
+        this.smellLack ||
+        this.tasteLack ||
+        this.diarrhea ||
+        this.covidContact ||
+        this.covidSuspectContact ||
+        this.covidHomemate ||
+        this.covidSuspectHomemate);
+  }
+
   @override
   int get hashCode =>
-      id.hashCode ^ fever.hashCode ^ cough.hashCode ^ breathDifficulty.hashCode
-      ^ fatigue.hashCode ^ musclePain.hashCode ^ smellLack.hashCode ^ tasteLack.hashCode
-      ^ diarrhea.hashCode ^ actualSymptoms.hashCode ^ covidContact.hashCode ^ covidSuspectContact.hashCode
-      ^ covidHomemate.hashCode ^ covidSuspectHomemate.hashCode ^ date.hashCode;
+      id.hashCode ^
+      fever.hashCode ^
+      cough.hashCode ^
+      breathDifficulty.hashCode ^
+      fatigue.hashCode ^
+      musclePain.hashCode ^
+      smellLack.hashCode ^
+      tasteLack.hashCode ^
+      diarrhea.hashCode ^
+      actualSymptoms.hashCode ^
+      covidContact.hashCode ^
+      covidSuspectContact.hashCode ^
+      covidHomemate.hashCode ^
+      covidSuspectHomemate.hashCode ^
+      date.hashCode;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is Symptoms &&
-              runtimeType == other.runtimeType &&
-              id == other.id &&
-              fever == other.fever &&
-              cough == other.cough &&
-              breathDifficulty == other.breathDifficulty &&
-              fatigue == other.fatigue &&
-              musclePain == other.musclePain &&
-              smellLack == other.smellLack &&
-              tasteLack == other.tasteLack &&
-              diarrhea == other.diarrhea &&
-              actualSymptoms == other.actualSymptoms &&
-              covidContact == other.covidContact &&
-              covidSuspectContact == other.covidSuspectContact &&
-              covidHomemate == other.covidHomemate &&
-              covidSuspectHomemate == other.covidSuspectHomemate &&
-              date == other.date;
+      other is Symptoms &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          fever == other.fever &&
+          cough == other.cough &&
+          breathDifficulty == other.breathDifficulty &&
+          fatigue == other.fatigue &&
+          musclePain == other.musclePain &&
+          smellLack == other.smellLack &&
+          tasteLack == other.tasteLack &&
+          diarrhea == other.diarrhea &&
+          actualSymptoms == other.actualSymptoms &&
+          covidContact == other.covidContact &&
+          covidSuspectContact == other.covidSuspectContact &&
+          covidHomemate == other.covidHomemate &&
+          covidSuspectHomemate == other.covidSuspectHomemate &&
+          date == other.date;
 
   @override
   String toString() {
@@ -88,9 +137,22 @@ class Symptoms {
   }
 
   SymptomsEntity toEntity() {
-    return SymptomsEntity(id, fever, cough, breathDifficulty, fatigue, musclePain,
-        smellLack, tasteLack, diarrhea, actualSymptoms, covidContact, covidSuspectContact,
-        covidHomemate, covidSuspectHomemate, date);
+    return SymptomsEntity(
+        id,
+        fever,
+        cough,
+        breathDifficulty,
+        fatigue,
+        musclePain,
+        smellLack,
+        tasteLack,
+        diarrhea,
+        actualSymptoms,
+        covidContact,
+        covidSuspectContact,
+        covidHomemate,
+        covidSuspectHomemate,
+        date);
   }
 
   static Symptoms fromEntity(SymptomsEntity entity) {

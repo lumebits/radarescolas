@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radarescolas/authentication/authentication.dart';
+import 'package:radarescolas/history/history.dart';
 import 'package:radarescolas/home/home.dart';
 import 'package:radarescolas/navigation/navigation.dart';
 import 'package:radarescolas/today/today.dart';
@@ -16,7 +17,7 @@ class HomePage extends StatelessWidget {
       builder: (context, activeTab) {
         return Scaffold(
           appBar: AppBar(
-
+            centerTitle: true,
             title: const Text('Radar Escolas'),
             actions: <Widget>[
               PopupMenuButton<String>(
@@ -38,7 +39,7 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-          body: activeTab == AppTab.today ? TodayPage() : (activeTab == AppTab.history ? History() : Info()),
+          body: activeTab == AppTab.today ? TodayPage() : (activeTab == AppTab.history ? HistoryPage() : Info()),
           bottomNavigationBar: TabSelector(
             activeTab: activeTab,
             onTabSelected: (tab) =>

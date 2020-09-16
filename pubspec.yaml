@@ -36,6 +36,8 @@ dependencies:
   symptoms_repository:
     path: packages/symptoms_repository
   toggle_switch: ^0.1.8
+  flutter_local_notifications: ^1.4.4+4
+  rxdart: ^0.23.1
   flare_flutter: any
 
   # The following adds the Cupertino Icons font to your application.

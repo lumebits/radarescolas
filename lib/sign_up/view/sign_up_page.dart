@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radarescolas/sign_up/sign_up.dart';
 
+import '../../theme.dart';
+
 class SignUpPage extends StatelessWidget {
   const SignUpPage({Key key}) : super(key: key);
 
@@ -13,11 +15,13 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          centerTitle: true,
-          title: const Text('Rexistro')
-      ),
-      body: SingleChildScrollView(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [theme.colorScheme.primary, theme.colorScheme.secondary]),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(30.0),
           child: BlocProvider<SignUpCubit>(

@@ -10,18 +10,22 @@ class HistoryList extends StatelessWidget {
         return Center(child: CircularProgressIndicator());
       } else if (state is HistoryLoaded) {
         final symptomsList = state.symptoms;
-        return SafeArea(
-          child: ListView.builder(
-            itemCount: symptomsList.length,
-            itemBuilder: (context, index) {
-              final symptoms = symptomsList[index];
-              return Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: HistoryItem(symptoms: symptoms),
-              );
-            },
-          ),
-        );
+        if (symptomsList.isNotEmpty) {
+          return SafeArea(
+            child: ListView.builder(
+              itemCount: symptomsList.length,
+              itemBuilder: (context, index) {
+                final symptoms = symptomsList[index];
+                return Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: HistoryItem(symptoms: symptoms),
+                );
+              },
+            ),
+          );
+        } else {
+          return Center(child: Text('Aínda non hai ningún rexistro'));
+        }
       } else {
         return Center(child: Text("Erro na conexión co servidor"));
       }

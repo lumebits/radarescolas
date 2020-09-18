@@ -25,7 +25,7 @@ class RadarUser extends Equatable {
   final String role;
 
   /// Empty user which represents an unauthenticated user.
-  static const empty = RadarUser(email: '', id: '', role: null);
+  static const empty = RadarUser(email: '', id: '', role: '');
 
   @override
   List<Object> get props => [email, id, role];

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radarescolas/authentication/authentication.dart';
 import 'package:radarescolas/home/home.dart';
 import 'package:radarescolas/login/login.dart';
+import 'package:radarescolas/navigation/bloc/navigation_bloc.dart';
 import 'package:radarescolas/splash/splash.dart';
 import 'package:radarescolas/theme.dart';
 
@@ -20,10 +21,17 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
       value: authenticationRepository,
-      child: BlocProvider(
-        create: (_) => AuthenticationBloc(
-          authenticationRepository: authenticationRepository,
-        ),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<AuthenticationBloc>(
+            create: (_) => AuthenticationBloc(
+              authenticationRepository: authenticationRepository,
+            ),
+          ),
+          BlocProvider<NavigationBloc>(
+            create: (_) => NavigationBloc(),
+          ),
+        ],
         child: AppView(),
       ),
     );
@@ -52,13 +60,13 @@ class _AppViewState extends State<AppView> {
               case AuthenticationStatus.authenticated:
                 _navigator.pushAndRemoveUntil<void>(
                   HomePage.route(),
-                      (route) => false,
+                  (route) => false,
                 );
                 break;
               case AuthenticationStatus.unauthenticated:
                 _navigator.pushAndRemoveUntil<void>(
                   LoginPage.route(),
-                      (route) => false,
+                  (route) => false,
                 );
                 break;
               default:

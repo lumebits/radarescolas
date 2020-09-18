@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radarescolas/authentication/authentication.dart';
+import 'package:radarescolas/history/history.dart';
 import 'package:radarescolas/home/home.dart';
+import 'package:radarescolas/navigation/navigation.dart';
+import 'package:radarescolas/today/today.dart';
 
 class HomePage extends StatelessWidget {
   static Route route() {
@@ -10,33 +13,41 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final user = context.bloc<AuthenticationBloc>().state.user;
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-        actions: <Widget>[
-          IconButton(
-            key: const Key('homePage_logout_iconButton'),
-            icon: const Icon(Icons.exit_to_app),
-            onPressed: () => context
-                .bloc<AuthenticationBloc>()
-                .add(AuthenticationLogoutRequested()),
-          )
-        ],
-      ),
-      body: Align(
-        alignment: const Alignment(0, -1 / 3),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            const SizedBox(height: 4.0),
-            Text(user.email, style: textTheme.headline6),
-            const SizedBox(height: 4.0),
-            Text(user.email ?? '', style: textTheme.headline5),
-          ],
-        ),
-      ),
+    return BlocBuilder<NavigationBloc, AppTab>(
+      builder: (context, activeTab) {
+        return Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: const Text('Radar Escolas'),
+            actions: <Widget>[
+              PopupMenuButton<String>(
+                onSelected: (action) {
+                  switch (action) {
+                    case 'Logout':
+                      context
+                          .bloc<AuthenticationBloc>()
+                          .add(AuthenticationLogoutRequested());
+                      break;
+                  }
+                },
+                itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
+                  PopupMenuItem<String>(
+                    value: 'Logout',
+                    child: Text('Pechar sesión'),
+                  )
+                ]
+              ),
+            ],
+          ),
+          body: activeTab == AppTab.today ? TodayPage() : (activeTab == AppTab.history ? HistoryPage() : Info()),
+          bottomNavigationBar: TabSelector(
+            activeTab: activeTab,
+            onTabSelected: (tab) =>
+                BlocProvider.of<NavigationBloc>(context).add(TabTapped(tab: tab)),
+          ),
+        );
+      },
     );
   }
+
 }

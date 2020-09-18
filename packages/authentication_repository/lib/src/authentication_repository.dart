@@ -43,19 +43,27 @@ class AuthenticationRepository {
     });
   }
 
-  /// Creates a new user with the provided [email] and [password].
+  /// Gets current user id
+  String currentUserId() {
+    return _firebaseAuth.currentUser.uid;
+  }
+
+  /// Creates a new user with the provided [role], [email] and [password].
   ///
   /// Throws a [SignUpFailure] if an exception occurs.
   Future<void> signUp({
+    @required String role,
     @required String email,
     @required String password,
   }) async {
-    assert(email != null && password != null);
+    assert(role != null && email != null && password != null);
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      var user = _firebaseAuth.currentUser;
+      await user.updateProfile(displayName: role);
     } on Exception {
       throw SignUpFailure();
     }
@@ -68,7 +76,7 @@ class AuthenticationRepository {
     try {
       final googleUser = await _googleSignIn.signIn();
       final googleAuth = await googleUser.authentication;
-      final credential = GoogleAuthProvider.getCredential(
+      final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
